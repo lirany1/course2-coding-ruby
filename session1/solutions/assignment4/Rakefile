@@ -1,1 +1,36 @@
 # assignment 4 solution
+
+ # namespace :gziped_files do
+  DPATH = ENV['PATH']
+  DEXCLUSDES = ENV['EXCLUDE']
+  desc "Archive files to gzip to a specified path"
+  task :archive  , [:PATH, :EXCLUDE] do
+##puts ENV['PATH'] 
+##puts ENV['EXCLUDE']
+    # Find all of the files 
+    Dir.chdir("/home/liran/Desktop/ruby-coding/my_archive")
+    files = Dir.glob('*')
+    pathNew=DPATH
+    ##puts pathNew
+#files = Dir.glob(pathNew)
+    lastPart = pathNew.split("/").last
+    firstpath = pathNew.chomp(lastPart)
+   ## puts lastPart
+    ##puts firstpath
+
+    #Dir.entries("/home/liran/Desktop/ruby-coding/my_archive").reject{|entry| entry=~/^\.{1,2}$/}
+    tempExlude = 'File.extname(file)==".bmp" || File.extname(file)==".csv"'
+put=Dir.glob('*').reject{|file| "#{tempExlude}" }
+#Dir.glob('*').reject{|EXCLUDE| File.extname(file)==".bmp"}
+##puts put
+##files.each{|file| puts  file }
+    # Compress the files  (file == "softlinks") || (file == "ci") || (file. include? "SNAPSHOT")}
+
+    ##filesList=files.map{|v|%Q{#{v}}}.join(' ')
+    puts filesList
+   mkdir "#{pathNew}/build"
+
+ tarrr="tar -cvzf #{pathNew}/build/#{lastPart}.tr.gz #{filesList}"
+#puts tarrr
+#tar -cvzf "#{pathNew}/build/#{lastPart}.tr.gz #{filesList}"
+end
