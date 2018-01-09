@@ -1,1 +1,42 @@
 # assignment 4 solution
+ #namespace :gziped_files do
+  
+  desc "Archive files to gzip to a specified path"
+  task :archive , [:M_PATH, :EXCLUDE]  do
+
+  mpath = ENV["M_PATH"]
+  dexclude = ENV["EXCLUDE"]
+
+    # Find all of the files 
+    Dir.chdir mpath
+    files = FileList["*"]
+    puts "The full file list is:"
+    files.each{|file| 
+      puts  file }
+    
+   #files=files.map{|v|%Q{#{v}}}.join(' ')
+    exlist = dexclude.split(",")
+    exlist.each {|ex|
+      files = files.exclude("*#{ex}")}
+    
+    puts"The files that will be compress are: #{files} ""\n"
+
+
+    files = files.exclude("build")
+
+    #pathNew=DPATH
+   # puts "#{pathNew}"
+#files = Dir.glob(pathNew)
+  #   lastPart = mpath.split("/").last
+   lastPart = mpath.split("/")[-1].gsub(/\s/,"_")
+    firstpath = mpath.chomp(lastPart)
+    #Dir.entries("/home/liran/Desktop/ruby-coding/my_archive").reject{|entry| entry=~/^\.{1,2}$/}
+#put=Dir.glob('*').reject{|file| "#{tempExlude}" }
+
+#puts "#{lastPart}"
+#puts "#{firstpath}"
+
+  Dir.mkdir("build")
+sh "tar -cvzf build/#{lastPart}.tar.gz #{files}"  
+
+end
