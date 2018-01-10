@@ -1,1 +1,28 @@
 # assignment 4 solution
+  desc "Archive files to gzip to a specified path"
+  task :archive , [:M_PATH, :EXCLUDE]  do
+
+  mpath = ENV["M_PATH"]
+  dexclude = ENV["EXCLUDE"]
+    Dir.chdir mpath
+    files = FileList["*"]
+    puts "The full file list is:"
+    files.each{|file| 
+      puts  file }
+    
+    exlist = dexclude.split(",")
+    exlist.each {|ex|
+      files = files.exclude("*#{ex}")}
+    
+    puts"The files that will be compress are: #{files} ""\n"
+
+
+    files = files.exclude("build")
+
+   lastPart = mpath.split("/")[-1].gsub(/\s/,"_")
+    firstpath = mpath.chomp(lastPart)
+
+  Dir.mkdir("build")
+sh "tar -cvzf build/#{lastPart}.tar.gz #{files}"  
+
+end

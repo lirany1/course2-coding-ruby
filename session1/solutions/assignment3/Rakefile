@@ -1,1 +1,20 @@
 # assignment 3 solution
+
+require 'fileutils'
+namespace :files do
+
+  desc "Rename yaml format to yml format"
+ task :rename_yml, [:path] do 
+
+userpath=ENV["path"]
+puts "The files in your folder are:"
+puts Dir.glob(userpath + "/*")
+Dir.glob(userpath + "/*.yaml").each do |f|
+
+    FileUtils.mv f, "#{File.dirname(f)}/#{File.basename(f,'.*')}.yml"
+end
+puts "The files that changed:"
+puts Dir.glob(userpath + "/*.yml")
+end
+end
+
