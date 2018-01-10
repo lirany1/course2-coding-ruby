@@ -9,7 +9,7 @@ namespace :files do
 userpath=ENV["path"]
 puts "The files in your folder are:"
 puts Dir.glob(userpath + "/*")
-Dir.glob(patt + "/*.yaml").each do |f|
+Dir.glob(userpath + "/*.yaml").each do |f|
 
     FileUtils.mv f, "#{File.dirname(f)}/#{File.basename(f,'.*')}.yml"
 end
